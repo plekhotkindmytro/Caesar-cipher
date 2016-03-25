@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<title>Caesar cipher</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+	crossorigin="anonymous">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<!-- Google Charts -->
+<!--Load the AJAX API-->
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	// Load the Visualization API and the corechart package.
+	google.charts.load('current', {
+		'packages' : [ 'corechart', 'bar' ]
+	});
+
+	// Set a callback to run when the Google Visualization API is loaded.
+	//google.charts.setOnLoadCallback(drawChart);
+
+	// Callback that creates and populates a data table,
+	// instantiates the pie chart, passes in the data and
+	// draws it.
+	function drawChart(rows) {
+
+		// Create the data table.
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Letter');
+		data.addColumn('number', 'Plain text');
+	//	data.addColumn('number', 'Cipher');
+		
+		data.addRows(rows);
+
+		// Set chart options
+		var options = {
+			'title' : 'How Much Pizza I Ate Last Night',
+
+		};
+
+		// Instantiate and draw our chart, passing in some options.
+		var chart = new google.charts.Bar(document.getElementById('chart_div'));
+		chart.draw(data, options);
+	}
+</script>
+</head>
+<body>
+	<!-- Static navbar -->
+	<nav class="navbar navbar-default navbar-static-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Caesar cipher</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse"></div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
+
+
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div class="form-group">
+					<label for="plainText">Text to process<span id="error"
+						style="color: red; display: none;">(Please enter some text)</span></label>
+					<textarea id="plainText" class="form-control" rows="5"
+						style="height: 300px;"></textarea>
+				</div>
+			</div>
+			<div class="col-md-2" style="text-align: center; margin-top: 60px;">
+				<div class="form-group">
+					<label for="rightShiftNumber">Right shift</label> <input
+						class="form-control" type="number" min="0" id="rightShiftNumber"
+						value="1" />
+				</div>
+				<div id="tooltip">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<div class="form-group">
+					<button type="button" id="encodeButton"
+						class="btn btn-action btn-lg">Encode</button>
+					<button type="button" id="decodeButton"
+						class="btn btn-action btn-lg">Decode</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /container -->
+
+	<div id="resultContainer"
+		style="display: none; background-color: #ADD8C7; padding: 10px;">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<div class="form-group">
+						<label for="cipher">Result</label>
+						<textarea id="cipher" class="form-control" rows="5"
+							style="height: 300px;" readonly></textarea>
+					</div>
+				</div>
+				<div class="col-md-2" style="text-align: center; margin-top: 60px;">
+				</div>
+			</div>
+		</div>
+		<!-- /container -->
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div id="chart_div"></div>
+			</div>
+			<div class="col-md-2" style="text-align: center; margin-top: 60px;">
+			</div>
+		</div>
+	</div>
+	<!-- /container -->
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript for Bootstrap -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		function countLetters(text) {
+			$.ajax({
+				contentType : 'application/json',
+				processData : false,
+				type : "POST",
+				dataType : "json",
+				url : "/count",
+				data : JSON.stringify({
+					"text" : text,
+					"rotateNumber" : null
+				}),
+				success : function(result) {
+					drawChart(result.chartRows);
+				}
+			});
+		}
+		
+		function tooltip(text){
+			$.ajax({
+				contentType : 'application/json',
+				processData : false,
+				type : "POST",
+				dataType : "json",
+				url : "/tooltip",
+				data : JSON.stringify({
+					"text" : text,
+					"rotateNumber" : null
+				}),
+				success : function(result) {
+					if(result.value) {
+					$("#tooltip").text("The text is probably a cipher with a right shift equals to " + result.value);
+					$("#tooltip").show();
+					} else {
+						$("#tooltip").text("");
+						$("#tooltip").hide();
+					}
+				}
+			});
+		}
+		
+		$(document).ready(function() {
+			$("#plainText").focusout(function() {
+				var text = $("#plainText").val();
+				if (text) {
+					countLetters(text);
+					tooltip(text);
+				} else {
+					$("#tooltip").text("");
+					$("#tooltip").hide();
+					$("#chart_div").html("");
+				}
+			});
+			
+			
+			$("#encodeButton").click(function() {
+				var text = $("#plainText").val();
+				if (!text) {
+					$("#error").show();
+					return false;
+				} else {
+					$("#error").hide();
+				}
+				var rightShiftNumber = $("#rightShiftNumber").val();
+				$.ajax({
+					contentType : 'application/json',
+					processData : false,
+					type : "POST",
+					dataType : "json",
+					url : "/encode",
+					data : JSON.stringify({
+						"text" : text,
+						"rotateNumber" : rightShiftNumber
+					}),
+					success : function(result) {
+						$("#cipher").val(result.value);
+						$("#resultContainer").show();
+						$("html, body").animate({
+							scrollTop : $(document).height()
+						}, "slow");
+						
+						return false;
+					}
+				});
+			});
+
+			$("#decodeButton").click(function() {
+				var text = $("#plainText").val();
+				if (!text) {
+					$("#error").show();
+					return false;
+				} else {
+					$("#error").hide();
+				}
+				var rightShiftNumber = $("#rightShiftNumber").val();
+				$.ajax({
+					contentType : 'application/json',
+					processData : false,
+					type : "POST",
+					dataType : "json",
+					url : "/decode",
+					data : JSON.stringify({
+						"text" : text,
+						"rotateNumber" : rightShiftNumber
+					}),
+					success : function(result) {
+						$("#cipher").val(result.value);
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
