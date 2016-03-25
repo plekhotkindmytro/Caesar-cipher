@@ -265,6 +265,12 @@
 					}),
 					success : function(result) {
 						$("#cipher").val(result.value);
+						$("#resultContainer").show();
+						$("html, body").animate({
+							scrollTop : $(document).height()
+						}, "slow");
+						
+						return false;
 					}
 				});
 			});

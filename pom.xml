@@ -65,11 +65,11 @@
 				<configuration>
 					<jdkVersion>1.8</jdkVersion>
 					<!-- Use your own application name -->
-					<appName>spark-heroku-example</appName>
+					<appName>rotn-web</appName>
 					<processTypes>
 						<!-- Tell Heroku how to launch your application -->
 						<!-- You might have to remove the ./ in front -->
-						<web>java -jar ./target/rotn-web-1.0-jar-with-dependencies.jar</web>
+						<web>java -jar target/rotn-web-0.0.1-SNAPSHOT-jar-with-dependencies.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>
