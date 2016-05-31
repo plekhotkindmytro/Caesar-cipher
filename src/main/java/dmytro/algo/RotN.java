@@ -2,7 +2,7 @@ package dmytro.algo;
 
 public final class RotN {
 
-    public static final String ALPHABET_LOWERCASE = "abcdefghijklmnopqrstuwxyz";
+    public static final String ALPHABET_LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
     private static final String ALPHABET_UPPERCASE = ALPHABET_LOWERCASE.toUpperCase();
 
     public static String encode(String message, int number) {
